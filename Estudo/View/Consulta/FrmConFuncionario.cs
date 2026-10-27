@@ -12,6 +12,7 @@ namespace Estudo
     {
         private FrmCadFuncionarios oFrmCadFuncionarios;
         private Funcionario oFuncionario;
+        private CtrlFunc aCtrlFunc;
 
         public FrmConFuncionario()
         {
@@ -37,24 +38,52 @@ namespace Estudo
 
         public override void Alterar()
         {
-            oFrmCadFuncionarios.ConhecaObjeto(oFuncionario, null);
-            oFrmCadFuncionarios.LimpaTxt();
+            if (LV.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Selecione uma linha.");
+                return;
+            }
+
+            string erro = aCtrlFunc.CarregarObj(oFuncionario);
+
+            if (erro != "")
+            {
+                MessageBox.Show(erro);
+                return;
+            }
+
+            oFrmCadFuncionarios.ConhecaObjeto(oFuncionario, aCtrlFunc);
             oFrmCadFuncionarios.CarregaTxt();
             oFrmCadFuncionarios.ShowDialog();
+            this.Pesquisar();
         }
 
         public override void Excluir()
         {
-            string aux;
-            aux = oFrmCadFuncionarios.btnSalvar.Text;
-            oFrmCadFuncionarios.btnSalvar.Text = "Excluir";
-            oFrmCadFuncionarios.ConhecaObjeto(oFuncionario, null);
-            oFrmCadFuncionarios.LimpaTxt();
-            oFrmCadFuncionarios.CarregaTxt();
-            oFrmCadFuncionarios.BloquearTxt();
-            oFrmCadFuncionarios.ShowDialog();
-            oFrmCadFuncionarios.btnSalvar.Text = aux;
-            oFrmCadFuncionarios.DesbloquearTxt();
+            if (LV.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Selecione uma linha.");
+                return;
+            }
+
+            DialogResult resp = MessageBox.Show(
+                "Deseja excluir o funcionário de matrícula " + oFuncionario.Mat + "?",
+                "Excluir",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (resp != DialogResult.Yes)
+                return;
+
+            string erro = aCtrlFunc.Excluir(oFuncionario);
+
+            if (erro != "")
+            {
+                MessageBox.Show(erro);
+                return;
+            }
+
+            this.Pesquisar();
         }
 
         public override void Pesquisar()
@@ -62,6 +91,51 @@ namespace Estudo
 
         }
 
+        private void LV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (LV.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Selecione uma linha.");
+                return;
+            }
+            if (this.LV.SelectedItems.Count > 0)
+            {
+                ListViewItem linha = LV.SelectedItems[0];
+                Funcionario oFuncionarioSel = (Funcionario)linha.Tag;
+                oFuncionario.Codigo = oFuncionarioSel.Codigo;
+                oFuncionario.NumCnh = oFuncionarioSel.NumCnh;
+                oFuncionario.DatCnh = oFuncionarioSel.DatCnh;
+                oFuncionario.Mat = oFuncionarioSel.Mat;
+                oFuncionario.SalBase = oFuncionarioSel.SalBase;
+                oFuncionario.NumDep = oFuncionarioSel.NumDep;
+                oFuncionario.DataValidade = oFuncionarioSel.DataValidade;
+                oFuncionario.Cep = oFuncionarioSel.Cep;
+                oFuncionario.ACidade = oFuncionarioSel.ACidade;
+                oFuncionario.OCargo = oFuncionarioSel.OCargo;
+            }
+        }
+        public override void Sair()
+        {
+            if (btnSair.Text == "Selecionar")
+            {
+                Funcionario oFuncionarioSel = (Funcionario)LV.SelectedItems[0].Tag;
 
+                oFuncionario.Codigo = oFuncionarioSel.Codigo;
+                oFuncionario.NumCnh = oFuncionarioSel.NumCnh;
+                oFuncionario.DatCnh = oFuncionarioSel.DatCnh;
+                oFuncionario.Mat = oFuncionarioSel.Mat;
+                oFuncionario.SalBase = oFuncionarioSel.SalBase;
+                oFuncionario.NumDep = oFuncionarioSel.NumDep;
+                oFuncionario.DataValidade = oFuncionarioSel.DataValidade;
+                oFuncionario.Cep = oFuncionarioSel.Cep;
+                oFuncionario.ACidade = oFuncionarioSel.ACidade;
+                oFuncionario.OCargo = oFuncionarioSel.OCargo;
+                DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                base.Sair();
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace Estudo
     {
         private Estados oEstado;
         private FrmCadEstados oFrmCadEstados;
+        private CtrlEstados aCtrlEstados;
         public FrmConEstados()
         {
             InitializeComponent();
@@ -20,45 +21,129 @@ namespace Estudo
         public override void ConhecaObjeto(object obj, object ctrl)
         {
             oEstado = (Estados)obj;
+            aCtrlEstados = (CtrlEstados)ctrl;
         }
 
         public override void Incluir()
         {
-            oFrmCadEstados.ConhecaObjeto(oEstado, null);
+            oFrmCadEstados.ConhecaObjeto(oEstado, aCtrlEstados);
             oFrmCadEstados.CarregaTxt();
             oFrmCadEstados.ShowDialog();
         }
 
         public override void Alterar()
         {
-            oFrmCadEstados.ConhecaObjeto(oEstado, null);
-            oFrmCadEstados.LimpaTxt();
+            if (LV.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Selecione uma linha.");
+                return;
+            }
+
+            string erro = aCtrlEstados.CarregarObj(oEstado);
+
+            if (erro != "")
+            {
+                MessageBox.Show(erro);
+                return;
+            }
+
+            oFrmCadEstados.ConhecaObjeto(oEstado, aCtrlEstados);
             oFrmCadEstados.CarregaTxt();
             oFrmCadEstados.ShowDialog();
+            this.Pesquisar();
         }
 
         public override void Excluir()
         {
-            string aux;
-            aux = oFrmCadEstados.btnSalvar.Text;
-            oFrmCadEstados.btnSalvar.Text = "Excluir";
-            oFrmCadEstados.ConhecaObjeto(oEstado, null);
-            oFrmCadEstados.LimpaTxt();
-            oFrmCadEstados.CarregaTxt();
-            oFrmCadEstados.BloquearTxt();
-            oFrmCadEstados.ShowDialog();
-            oFrmCadEstados.btnSalvar.Text = aux;
-            oFrmCadEstados.DesbloquearTxt();
+            if (LV.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Selecione uma linha.");
+                return;
+            }
+
+            DialogResult resp = MessageBox.Show(
+                "Deseja excluir o estado " + oEstado.Estado + "?",
+                "Excluir",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (resp != DialogResult.Yes)
+                return;
+
+            string erro = aCtrlEstados.Excluir(oEstado);
+
+            if (erro != "")
+            {
+                MessageBox.Show(erro);
+                return;
+            }
+
+            this.Pesquisar();
         }
 
         public override void Pesquisar()
         {
+            this.LV.Items.Clear();
+            Estados oEstadoFiltro = new Estados();
 
+            oEstadoFiltro.Estado = txtCodigo.Text.Trim().ToUpper();
+            // var listaResultado = new List<Paises>();
+            foreach (Estados o in aCtrlEstados.Pesquisar(oEstadoFiltro))
+            {
+                AdicionarLinhaLV(o);
+            }
+        }
+
+        private void AdicionarLinhaLV(Estados oEstadoA)
+        {
+            ListViewItem item = new ListViewItem(".");
+            item.SubItems.Add(oEstado.Codigo.ToString());
+            item.SubItems.Add(oEstado.Estado);
+            item.SubItems.Add(oEstado.OPais.Pais);
+            item.SubItems.Add(oEstado.Uf);
+            item.Tag = oEstadoA;
+            LV.Items.Add(item);
         }
 
         public override void setFrmCadastro(object obj)
         {
             oFrmCadEstados = (FrmCadEstados)obj;
+            oFrmCadEstados.ConhecaObjeto(oEstado, aCtrlEstados);
+        }
+
+        private void LV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (LV.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Selecione uma linha.");
+                return;
+            }
+            if (this.LV.SelectedItems.Count > 0)
+            {
+                ListViewItem linha = LV.SelectedItems[0];
+                Estados oEstadoSel = (Estados)linha.Tag;
+                oEstado.Codigo = oEstadoSel.Codigo;
+                oEstado.Estado = oEstadoSel.Estado;
+                oEstado.Uf = oEstadoSel.Uf;
+                oEstado.OPais = oEstadoSel.OPais;
+            }
+        }
+        public override void Sair()
+        {
+            if (btnSair.Text == "Selecionar")
+            {
+                Estados oEstadoSel = (Estados)LV.SelectedItems[0].Tag;
+
+                oEstado.Codigo = oEstadoSel.Codigo;
+                oEstado.Estado = oEstadoSel.Estado;
+                oEstado.Uf = oEstadoSel.Uf;
+                oEstado.OPais = oEstadoSel.OPais;
+                DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                base.Sair();
+            }
         }
     }
 }

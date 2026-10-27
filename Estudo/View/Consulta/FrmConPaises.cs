@@ -12,6 +12,7 @@ namespace Estudo
     {
         protected FrmCadPaises oFrmCadPaises;
         private Paises oPais;
+        private CtrlPaises aCtrlPaises;
         public FrmConPaises()
         {
             InitializeComponent();
@@ -19,46 +20,137 @@ namespace Estudo
 
         public override void ConhecaObjeto(object obj, object ctrl)
         {
-            oPais = (Paises)obj; 
+            oPais = (Paises)obj;
+            aCtrlPaises = (CtrlPaises)ctrl;
+            this.Pesquisar();
         }
 
         public override void setFrmCadastro(object obj)
         {
             oFrmCadPaises = (FrmCadPaises)obj;
+            oFrmCadPaises.ConhecaObjeto(oPais, aCtrlPaises);
         }
 
         public override void Incluir()
         {
-            oFrmCadPaises.ConhecaObjeto(oPais, null);
+            oFrmCadPaises.ConhecaObjeto(oPais, aCtrlPaises);
             oFrmCadPaises.CarregaTxt();
             oFrmCadPaises.ShowDialog();
+            this.Pesquisar();
         }
 
         public override void Alterar()
         {
-            oFrmCadPaises.ConhecaObjeto(oPais, null);
-            oFrmCadPaises.LimpaTxt();
+            if (LV.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Selecione uma linha.");
+                return;
+            }
+
+            string erro = aCtrlPaises.CarregarObj(oPais);
+
+            if (erro != "")
+            {
+                MessageBox.Show(erro);
+                return;
+            }
+
+            oFrmCadPaises.ConhecaObjeto(oPais, aCtrlPaises);
             oFrmCadPaises.CarregaTxt();
             oFrmCadPaises.ShowDialog();
+            this.Pesquisar();
         }
 
         public override void Excluir()
         {
-            string aux;
-            aux = oFrmCadPaises.btnSalvar.Text;
-            oFrmCadPaises.btnSalvar.Text = "Excluir";
-            oFrmCadPaises.ConhecaObjeto(oPais, null);
-            oFrmCadPaises.LimpaTxt();
-            oFrmCadPaises.CarregaTxt();
-            oFrmCadPaises.BloquearTxt();
-            oFrmCadPaises.ShowDialog();
-            oFrmCadPaises.btnSalvar.Text = aux;
-            oFrmCadPaises.DesbloquearTxt();
+            if (LV.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Selecione uma linha.");
+                return;
+            }
+
+            DialogResult resp = MessageBox.Show(
+                "Deseja excluir o país " + oPais.Pais + "?",
+                "Excluir",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (resp != DialogResult.Yes)
+                return;
+
+            string erro = aCtrlPaises.Excluir(oPais);
+
+            if (erro != "")
+            {
+                MessageBox.Show(erro);
+                return;
+            }
+
+            this.Pesquisar();
         }
 
         public override void Pesquisar()
         {
+            this.LV.Items.Clear();
+            Paises oPaisFiltro = new Paises();
 
+            oPaisFiltro.Pais = txtCodigo.Text.Trim().ToUpper();
+            // var listaResultado = new List<Paises>();
+            foreach (Paises o in aCtrlPaises.Pesquisar(oPaisFiltro))
+            {
+                AdicionarLinhaLV(o);
+            }
+        }
+            
+        private void AdicionarLinhaLV(Paises oPaisA)
+        {
+                ListViewItem item = new ListViewItem(".");
+                item.SubItems.Add(oPais.Codigo.ToString());
+                item.SubItems.Add(oPais.Pais);
+                item.SubItems.Add(oPais.Sigla);
+                item.SubItems.Add(oPais.Ddi);
+                item.SubItems.Add(oPais.Moeda);
+                item.Tag = oPaisA;
+                LV.Items.Add(item);
+        }
+
+        public override void Sair()
+        {
+            if (btnSair.Text == "Selecionar")
+            {
+
+                ListViewItem item = LV.SelectedItems[0];
+
+                oPais.Codigo = Convert.ToInt32(item.SubItems[1].Text);
+                oPais.Pais = item.SubItems[2].Text;
+                oPais.Sigla = item.SubItems[3].Text;
+                oPais.Ddi = item.SubItems[4].Text;
+                oPais.Moeda = item.SubItems[5].Text;
+                DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                base.Sair();
+            }
+        }
+
+        private void LV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (LV.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Selecione uma linha.");
+                return;
+            }
+            if (this.LV.SelectedItems.Count > 0)
+            {
+                ListViewItem linha = LV.SelectedItems[0];
+                Paises oPaisSel = (Paises)linha.Tag;
+                oPais.Codigo = oPaisSel.Codigo;
+                oPais.Pais = oPaisSel.Pais;
+                oPais.Sigla = oPaisSel.Sigla;
+                oPais.Ddi = oPaisSel.Ddi;
+                oPais.Moeda = oPaisSel.Moeda;
+            }
         }
     }
 }

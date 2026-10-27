@@ -20,6 +20,14 @@ namespace Estudo
         protected Estados oEstado;
         protected Cargo oCargo;
 
+        protected CtrlCargo oCtrlCargo;
+        protected CtrlFunc oCtrlFunc;
+        protected CtrlPaises oCtrlPaises;
+        protected CtrlEstados oCtrlEstados;
+        protected CtrlCidades oCtrlCidades;
+
+
+
 
         protected FrmCadFuncionarios oFrmCadFuncionarios;
         protected FrmCadPaises oFrmCadPaises;
@@ -42,6 +50,7 @@ namespace Estudo
             oFrmCadCidades = new FrmCadCidades();
             oFrmCadCargo = new FrmCadCargo();
 
+            
 
             oFrmConPaises.setFrmCadastro(oFrmCadPaises);
             oFrmConEstados.setFrmCadastro(oFrmCadEstados);
@@ -54,7 +63,7 @@ namespace Estudo
             oFrmCadFuncionarios.setFrmConsulta(oFrmConCargo, oFrmConCidades);
         }
 
-        public void PecaPaises(Paises obj, object ctrl)
+        public void PecaPaises(Paises obj, CtrlPaises ctrl)
         {
             oFrmConPaises.ConhecaObjeto(obj, ctrl);
             oFrmConPaises.ShowDialog();

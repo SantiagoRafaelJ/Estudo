@@ -15,6 +15,10 @@ namespace Estudo
         private FrmConCargo oFrmConCargo;
         private FrmConCidades oFrmConCidades;
         private CtrlFunc aCtrlFuncionarios;
+
+        private CtrlCargo aCtrlCargo;
+
+        private CtrlCidades aCtrlCidades;
         public FrmCadFuncionarios()
         {
             InitializeComponent();
@@ -107,14 +111,24 @@ namespace Estudo
 
         private void btnPesquisarCargo_Click(object sender, EventArgs e)
         {
-            oFrmConCargo.ConhecaObjeto(oFuncionario.OCargo, null);
+            string aux = oFrmConCargo.btnSair.Text;
+            oFrmConCargo.btnSair.Text = "Selecionar";
+            oFrmConCargo.ConhecaObjeto(oFuncionario.OCargo, aCtrlCargo);
             oFrmConCargo.ShowDialog();
+            this.txtCodCargo.Text = Convert.ToString(oFuncionario.OCargo.Codigo);
+            this.txtCargo.Text = oFuncionario.OCargo.Nome;
+            oFrmConCargo.btnSair.Text = aux;
         }
 
         private void btnPesquisarCidade_Click(object sender, EventArgs e)
         {
-            oFrmConCidades.ConhecaObjeto(oFuncionario.ACidade, null);
+            string aux = oFrmConCidades.btnSair.Text;
+            oFrmConCidades.btnSair.Text = "Selecionar";
+            oFrmConCidades.ConhecaObjeto(oFuncionario.ACidade, aCtrlCidades);
             oFrmConCidades.ShowDialog();
+            this.txtCodCargo.Text = Convert.ToString(oFuncionario.ACidade.Cidade);
+            this.txtCargo.Text = oFuncionario.ACidade.Cidade;
+            oFrmConCargo.btnSair.Text = aux;
         }
 
         public override void Salvar()

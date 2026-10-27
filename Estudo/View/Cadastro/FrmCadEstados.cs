@@ -13,6 +13,8 @@ namespace Estudo
         FrmConPaises oFrmConPaises;
         private Estados oEstado;
         private CtrlEstados aCtrlEstados;
+
+        private CtrlPaises aCtrlPaises;
         public FrmCadEstados()
         {
             InitializeComponent();
@@ -70,6 +72,12 @@ namespace Estudo
 
         public override void Salvar()
         {
+            if ((this.txtEstado.Text == "") || (this.txtEstado.Text == null))
+            { 
+                this.txtEstado.Focus();
+            }
+            if (txtCodPais == null)
+                this.txtCodPais.Focus();
             oEstado.Codigo = Convert.ToInt32(txtCodigo.Text);
             oEstado.Estado = txtEstado.Text;
             oEstado.Uf = txtUf.Text;
@@ -87,8 +95,17 @@ namespace Estudo
 
         private void btnPesquisar_Click(object sender, EventArgs e)
         {
-            oFrmConPaises.ConhecaObjeto(oEstado.OPais, null);
+            string aux = oFrmConPaises.btnSair.Text;
+            string aux2 = this.lblUf.Text;
+            oFrmConPaises.btnSair.Text = "Selecionar";
+            oFrmConPaises.ConhecaObjeto(oEstado.OPais, aCtrlEstados.ACtrlPaises); //aCtrlEstados.aCtrlPaises não está indo
             oFrmConPaises.ShowDialog();
+            this.txtCodPais.Text = Convert.ToString(oEstado.OPais.Codigo);
+            this.txtPais.Text = oEstado.OPais.Pais; 
+            if (oEstado.OPais.Sigla == "BR")
+                this.lblUf.Text = this.lblUf.Text + '*';
+            oFrmConPaises.btnSair.Text = aux;
+        //  this.lblUf.Text = aux2;
         }
     }
 }

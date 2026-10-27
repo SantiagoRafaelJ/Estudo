@@ -64,7 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Banco.cs" />
-    <Compile Include="Models\DAO\Dao.cs" />
+    <Compile Include="DAO\Dao.cs" />
     <Compile Include="Models\Cargo.cs" />
     <Compile Include="Models\Cidades.cs" />
     <Compile Include="Controller\Controller.cs" />
@@ -73,7 +73,11 @@
     <Compile Include="Controller\CtrlEstados.cs" />
     <Compile Include="Controller\CtrlFunc.cs" />
     <Compile Include="Controller\CtrlPaises.cs" />
-    <Compile Include="Models\DAO\DaoPaises.cs" />
+    <Compile Include="DAO\DaoCargo.cs" />
+    <Compile Include="DAO\DaoCidades.cs" />
+    <Compile Include="DAO\DaoEstados.cs" />
+    <Compile Include="DAO\DaoFuncionarios.cs" />
+    <Compile Include="DAO\DaoPaises.cs" />
     <Compile Include="Models\Estados.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

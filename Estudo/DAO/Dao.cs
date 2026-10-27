@@ -8,6 +8,7 @@ namespace Estudo
 {
     internal abstract class Dao
     {
+        
         public abstract string Salvar(object obj);
         public abstract string CarregarObj(object obj);
         public abstract List<object> CarregarColecao();

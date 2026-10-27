@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Estudo.Models.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,10 @@ namespace Estudo
 {
     internal class CtrlCargo : Controller
     {
-        CtrlFunc aCtrlFunc;
+        protected DaoCargo aDaoCargo;
         public CtrlCargo()
         {
-            aCtrlFunc = new CtrlFunc();
+            aDaoCargo = new DaoCargo();
         }
         public override string Salvar(object obj)
         {
@@ -19,13 +20,17 @@ namespace Estudo
         }
         public override string CarregarObj(object obj)
         {
-            return null;
+            return aDaoCargo.CarregarObj(obj);
         }
         public override List<object> Pesquisar(object obj)
         {
             return null;
         }
         public override string Excluir(object obj)
+        {
+            return aDaoCargo.Excluir(obj);
+        }
+        public override List<object> CarregarColecao()
         {
             return null;
         }

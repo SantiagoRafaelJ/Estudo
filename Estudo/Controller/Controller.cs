@@ -6,27 +6,12 @@ using System.Threading.Tasks;
 
 namespace Estudo
 {
-    internal class Controller
+    internal abstract class Controller
     {
-        public abstract virtual string Salvar(object obj)
-        {
-            return null;
-        }
-        public abstract virtual string CarregarObj(object obj)
-        {
-            return null;
-        }
-        public abstract virtual List<object> CarregarColecao()
-        {
-            return null;
-        }
-        public abstract virtual List<object> Pesquisar(object obj)
-        {
-            return null;
-        }
-        public abstract virtual string Excluir(object obj)
-        {
-            return null;
-        }
+        public abstract string Salvar(object obj);
+        public abstract string CarregarObj(object obj);
+        public abstract List<object> CarregarColecao();
+        public abstract List<object> Pesquisar(object obj);
+        public abstract string Excluir(object obj);
     }
 }

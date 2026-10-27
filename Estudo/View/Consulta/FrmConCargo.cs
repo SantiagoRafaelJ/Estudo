@@ -12,6 +12,7 @@ namespace Estudo
     {
         private FrmCadCargo oFrmCadCargo;
         private Cargo oCargo;
+        private CtrlCargo aCtrlCargo;
         public FrmConCargo()
         {
             InitializeComponent();
@@ -36,24 +37,52 @@ namespace Estudo
 
         public override void Alterar()
         {
-            oFrmCadCargo.ConhecaObjeto(oCargo, null);
-            oFrmCadCargo.LimpaTxt();
+            if (LV.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Selecione uma linha.");
+                return;
+            }
+
+            string erro = aCtrlCargo.CarregarObj(oCargo);
+
+            if (erro != "")
+            {
+                MessageBox.Show(erro);
+                return;
+            }
+
+            oFrmCadCargo.ConhecaObjeto(oCargo, aCtrlCargo);
             oFrmCadCargo.CarregaTxt();
             oFrmCadCargo.ShowDialog();
+            this.Pesquisar();
         }
 
         public override void Excluir()
         {
-            string aux;
-            aux = oFrmCadCargo.btnSalvar.Text;
-            oFrmCadCargo.btnSalvar.Text = "Excluir";
-            oFrmCadCargo.ConhecaObjeto(oCargo, null);
-            oFrmCadCargo.LimpaTxt();
-            oFrmCadCargo.CarregaTxt();
-            oFrmCadCargo.BloquearTxt();
-            oFrmCadCargo.ShowDialog();
-            oFrmCadCargo.btnSalvar.Text = aux;
-            oFrmCadCargo.DesbloquearTxt();
+            if (LV.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Selecione uma linha.");
+                return;
+            }
+
+            DialogResult resp = MessageBox.Show(
+                "Deseja excluir o cargo " + oCargo.Nome + "?",
+                "Excluir",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (resp != DialogResult.Yes)
+                return;
+
+            string erro = aCtrlCargo.Excluir(oCargo);
+
+            if (erro != "")
+            {
+                MessageBox.Show(erro);
+                return;
+            }
+
+            this.Pesquisar();
         }
 
         public override void Pesquisar()
@@ -61,5 +90,39 @@ namespace Estudo
 
         }
 
+        private void LV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.LV.SelectedItems.Count > 0)
+            {
+                ListViewItem linha = LV.SelectedItems[0];
+                Cargo oCargoSel = (Cargo)linha.Tag;
+                oCargo.Codigo = oCargoSel.Codigo;
+                oCargo.Nome = oCargoSel.Nome;
+                oCargo.Comiss = oCargoSel.Comiss;
+                oCargo.ExigeCNH = oCargoSel.ExigeCNH;
+            }
+        }
+        public override void Sair()
+        {
+            if (LV.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Selecione uma linha.");
+                return;
+            }
+            if (btnSair.Text == "Selecionar")
+            {
+                Cargo oCargoSel = (Cargo)LV.SelectedItems[0].Tag;
+
+                oCargo.Codigo = oCargoSel.Codigo;
+                oCargo.Nome = oCargoSel.Nome;
+                oCargo.Comiss = oCargoSel.Comiss;
+                oCargo.ExigeCNH = oCargoSel.ExigeCNH;
+                DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                base.Sair();
+            }
+        }
     }
 }

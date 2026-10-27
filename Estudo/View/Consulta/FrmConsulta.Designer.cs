@@ -103,7 +103,7 @@
             this.Controls.Add(this.btnAlterar);
             this.Controls.Add(this.btnIncluir);
             this.Name = "FrmConsulta";
-            this.Text = "FrmConsulta";
+            this.Text = " ";
             this.Controls.SetChildIndex(this.btnIncluir, 0);
             this.Controls.SetChildIndex(this.btnAlterar, 0);
             this.Controls.SetChildIndex(this.btnExcluir, 0);

@@ -9,7 +9,7 @@ namespace Estudo
 {
     internal class Banco
     {
-        private string strcnn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Funcionario\Estudo\BDGrafico_2026-05-25.mdf;Integrated Security=True";
+        private static string strcnn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Funcionario\Estudo\BDGrafico_2026-05-25.mdf;Integrated Security=True";
 
         public static SqlConnection AbrirBD()
         {

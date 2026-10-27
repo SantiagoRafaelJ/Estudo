@@ -75,9 +75,8 @@
         }
 
         #endregion
-
-        protected System.Windows.Forms.Button btnSair;
         protected System.Windows.Forms.TextBox txtCodigo;
         protected System.Windows.Forms.Label lblCodigo;
+        public System.Windows.Forms.Button btnSair;
     }
 }

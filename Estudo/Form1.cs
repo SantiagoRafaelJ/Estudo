@@ -34,6 +34,11 @@ namespace Estudo
             oCidade = new Cidades();
             oFuncionario = new Funcionario();
             oCargo = new Cargo();
+            oCtrlPaises = new CtrlPaises();
+            oCtrlEstados = new CtrlEstados();
+            oCtrlCidades = new CtrlCidades();
+            oCtrlFunc = new CtrlFunc();
+            oCtrlCargo = new CtrlCargo();
         }
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)

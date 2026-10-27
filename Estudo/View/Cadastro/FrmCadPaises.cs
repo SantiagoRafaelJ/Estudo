@@ -26,6 +26,7 @@ namespace Estudo
         public override void LimpaTxt()
         {
             this.txtCodigo.Clear();
+            this.txtCodigo.Text = "0";
             this.txtPais.Clear();
             this.txtSigla.Clear();
             this.txtDdi.Clear();
@@ -74,10 +75,13 @@ namespace Estudo
             oPais.Sigla = txtSigla.Text;
             oPais.Ddi = txtDdi.Text;
             oPais.Moeda = txtMoeda.Text;
-            msg = aCtrlPaises.Salvar(oPais);
-            if (msg != null)
+            if (btnSalvar.Text == "Sal&var")
+                msg = aCtrlPaises.Salvar(oPais);
+            else
+                msg = aCtrlPaises.Excluir(oPais);
+            if(msg != null)
             {
-                ShowDialog(msg);
+                MessageBox.Show( msg );
             }
             this.Sair();
         }

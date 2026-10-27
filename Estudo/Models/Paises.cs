@@ -29,6 +29,15 @@ namespace Estudo
             this.moeda = moeda;
         }
 
+        public Paises(int codigo, string pais, string sigla, string ddi, string moeda)
+        {
+            this.codigo = codigo;
+            this.pais = pais;
+            this.sigla = sigla;
+            this.ddi = ddi;
+            this.moeda = moeda;
+        }
+
         public string Pais
         {
             get => pais;
@@ -37,8 +46,8 @@ namespace Estudo
 
         public string Sigla
         {
-            get => pais;
-            set => pais = value;
+            get => sigla;
+            set => sigla = value;
         }
 
         public string Ddi
@@ -49,8 +58,8 @@ namespace Estudo
 
         public string Moeda
         {
-            get => pais;
-            set => pais = value;
+            get => moeda;
+            set => moeda = value;
         }
 
         public Paises Clone()

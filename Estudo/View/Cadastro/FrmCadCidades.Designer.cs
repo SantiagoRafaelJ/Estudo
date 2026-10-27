@@ -29,16 +29,13 @@
         private void InitializeComponent()
         {
             this.lblCidade = new System.Windows.Forms.Label();
-            this.txtCodPais = new System.Windows.Forms.TextBox();
             this.txtDdd = new System.Windows.Forms.TextBox();
-            this.txtPais = new System.Windows.Forms.TextBox();
             this.txtCidade = new System.Windows.Forms.TextBox();
             this.txtCodEstado = new System.Windows.Forms.TextBox();
             this.txtEstado = new System.Windows.Forms.TextBox();
             this.lblDdd = new System.Windows.Forms.Label();
             this.lblPais = new System.Windows.Forms.Label();
             this.lblEstado = new System.Windows.Forms.Label();
-            this.btnPesquisarPais = new System.Windows.Forms.Button();
             this.btnPesquisarEstado = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -55,16 +52,9 @@
             this.lblCidade.AutoSize = true;
             this.lblCidade.Location = new System.Drawing.Point(146, 9);
             this.lblCidade.Name = "lblCidade";
-            this.lblCidade.Size = new System.Drawing.Size(51, 16);
+            this.lblCidade.Size = new System.Drawing.Size(56, 16);
             this.lblCidade.TabIndex = 10;
-            this.lblCidade.Text = "Cidade";
-            // 
-            // txtCodPais
-            // 
-            this.txtCodPais.Location = new System.Drawing.Point(0, 0);
-            this.txtCodPais.Name = "txtCodPais";
-            this.txtCodPais.Size = new System.Drawing.Size(100, 22);
-            this.txtCodPais.TabIndex = 22;
+            this.lblCidade.Text = "Cidade*";
             // 
             // txtDdd
             // 
@@ -72,13 +62,6 @@
             this.txtDdd.Name = "txtDdd";
             this.txtDdd.Size = new System.Drawing.Size(71, 22);
             this.txtDdd.TabIndex = 3;
-            // 
-            // txtPais
-            // 
-            this.txtPais.Location = new System.Drawing.Point(0, 0);
-            this.txtPais.Name = "txtPais";
-            this.txtPais.Size = new System.Drawing.Size(100, 22);
-            this.txtPais.TabIndex = 21;
             // 
             // txtCidade
             // 
@@ -112,7 +95,7 @@
             // 
             // lblPais
             // 
-            this.lblPais.Location = new System.Drawing.Point(0, 0);
+            this.lblPais.Location = new System.Drawing.Point(68, 158);
             this.lblPais.Name = "lblPais";
             this.lblPais.Size = new System.Drawing.Size(100, 23);
             this.lblPais.TabIndex = 20;
@@ -122,16 +105,9 @@
             this.lblEstado.AutoSize = true;
             this.lblEstado.Location = new System.Drawing.Point(554, 9);
             this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(50, 16);
+            this.lblEstado.Size = new System.Drawing.Size(55, 16);
             this.lblEstado.TabIndex = 19;
-            this.lblEstado.Text = "Estado";
-            // 
-            // btnPesquisarPais
-            // 
-            this.btnPesquisarPais.Location = new System.Drawing.Point(0, 0);
-            this.btnPesquisarPais.Name = "btnPesquisarPais";
-            this.btnPesquisarPais.Size = new System.Drawing.Size(75, 23);
-            this.btnPesquisarPais.TabIndex = 12;
+            this.lblEstado.Text = "Estado*";
             // 
             // btnPesquisarEstado
             // 
@@ -148,16 +124,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.ClientSize = new System.Drawing.Size(852, 474);
             this.Controls.Add(this.btnPesquisarEstado);
-            this.Controls.Add(this.btnPesquisarPais);
             this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.lblPais);
             this.Controls.Add(this.lblDdd);
             this.Controls.Add(this.txtEstado);
             this.Controls.Add(this.txtCodEstado);
             this.Controls.Add(this.txtCidade);
-            this.Controls.Add(this.txtPais);
             this.Controls.Add(this.txtDdd);
-            this.Controls.Add(this.txtCodPais);
             this.Controls.Add(this.lblCidade);
             this.Name = "FrmCadCidades";
             this.Controls.SetChildIndex(this.btnSalvar, 0);
@@ -168,16 +141,13 @@
             this.Controls.SetChildIndex(this.lblUltAlt, 0);
             this.Controls.SetChildIndex(this.lblCodUsu, 0);
             this.Controls.SetChildIndex(this.lblCidade, 0);
-            this.Controls.SetChildIndex(this.txtCodPais, 0);
             this.Controls.SetChildIndex(this.txtDdd, 0);
-            this.Controls.SetChildIndex(this.txtPais, 0);
             this.Controls.SetChildIndex(this.txtCidade, 0);
             this.Controls.SetChildIndex(this.txtCodEstado, 0);
             this.Controls.SetChildIndex(this.txtEstado, 0);
             this.Controls.SetChildIndex(this.lblDdd, 0);
             this.Controls.SetChildIndex(this.lblPais, 0);
             this.Controls.SetChildIndex(this.lblEstado, 0);
-            this.Controls.SetChildIndex(this.btnPesquisarPais, 0);
             this.Controls.SetChildIndex(this.btnPesquisarEstado, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -187,16 +157,13 @@
         #endregion
 
         private System.Windows.Forms.Label lblCidade;
-        private System.Windows.Forms.TextBox txtCodPais;
         private System.Windows.Forms.TextBox txtDdd;
-        private System.Windows.Forms.TextBox txtPais;
         private System.Windows.Forms.TextBox txtCidade;
         private System.Windows.Forms.TextBox txtCodEstado;
         private System.Windows.Forms.TextBox txtEstado;
         private System.Windows.Forms.Label lblDdd;
         private System.Windows.Forms.Label lblPais;
         private System.Windows.Forms.Label lblEstado;
-        private System.Windows.Forms.Button btnPesquisarPais;
         private System.Windows.Forms.Button btnPesquisarEstado;
     }
 }

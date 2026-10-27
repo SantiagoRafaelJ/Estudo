@@ -38,6 +38,10 @@
             this.txtSigla = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
+            // btnSalvar
+            // 
+            this.btnSalvar.Text = "Sal&var";
+            // 
             // lblPais
             // 
             this.lblPais.AutoSize = true;
@@ -116,6 +120,7 @@
             this.Controls.Add(this.lblPais);
             this.Name = "FrmCadPaises";
             this.Text = "Cadastro de Paises";
+            this.Controls.SetChildIndex(this.btnSalvar, 0);
             this.Controls.SetChildIndex(this.btnSair, 0);
             this.Controls.SetChildIndex(this.txtCodigo, 0);
             this.Controls.SetChildIndex(this.lblCodigo, 0);

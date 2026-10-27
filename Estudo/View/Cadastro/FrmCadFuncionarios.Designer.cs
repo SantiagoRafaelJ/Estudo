@@ -185,9 +185,9 @@
             this.lblCargo.AutoSize = true;
             this.lblCargo.Location = new System.Drawing.Point(337, 65);
             this.lblCargo.Name = "lblCargo";
-            this.lblCargo.Size = new System.Drawing.Size(44, 16);
+            this.lblCargo.Size = new System.Drawing.Size(49, 16);
             this.lblCargo.TabIndex = 27;
-            this.lblCargo.Text = "Cargo";
+            this.lblCargo.Text = "Cargo*";
             // 
             // btnPesquisarCargo
             // 
@@ -218,9 +218,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(574, 64);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 16);
+            this.label1.Size = new System.Drawing.Size(56, 16);
             this.label1.TabIndex = 31;
-            this.label1.Text = "Cidade";
+            this.label1.Text = "Cidade*";
             // 
             // btnPesquisarCidade
             // 

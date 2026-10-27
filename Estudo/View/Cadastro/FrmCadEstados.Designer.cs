@@ -42,26 +42,26 @@
             // 
             this.btnSalvar.TabIndex = 8;
             // 
-            // btnSair
-            // 
-            this.btnSair.TabIndex = 9;
-            // 
             // txtCodigo
             // 
             this.txtCodigo.TabIndex = 2;
+            // 
+            // btnSair
+            // 
+            this.btnSair.TabIndex = 9;
             // 
             // lblEstado
             // 
             this.lblEstado.AutoSize = true;
             this.lblEstado.Location = new System.Drawing.Point(142, 9);
             this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(50, 16);
+            this.lblEstado.Size = new System.Drawing.Size(55, 16);
             this.lblEstado.TabIndex = 10;
-            this.lblEstado.Text = "Estado";
+            this.lblEstado.Text = "Estado*";
             // 
             // txtUf
             // 
-            this.txtUf.Location = new System.Drawing.Point(388, 28);
+            this.txtUf.Location = new System.Drawing.Point(782, 28);
             this.txtUf.Name = "txtUf";
             this.txtUf.Size = new System.Drawing.Size(41, 22);
             this.txtUf.TabIndex = 4;
@@ -69,7 +69,7 @@
             // lblUf
             // 
             this.lblUf.AutoSize = true;
-            this.lblUf.Location = new System.Drawing.Point(385, 9);
+            this.lblUf.Location = new System.Drawing.Point(779, 9);
             this.lblUf.Name = "lblUf";
             this.lblUf.Size = new System.Drawing.Size(25, 16);
             this.lblUf.TabIndex = 12;
@@ -80,9 +80,9 @@
             this.lblPais.AutoSize = true;
             this.lblPais.Location = new System.Drawing.Point(543, 9);
             this.lblPais.Name = "lblPais";
-            this.lblPais.Size = new System.Drawing.Size(34, 16);
+            this.lblPais.Size = new System.Drawing.Size(39, 16);
             this.lblPais.TabIndex = 13;
-            this.lblPais.Text = "Pais";
+            this.lblPais.Text = "Pais*";
             // 
             // txtPais
             // 
@@ -120,7 +120,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(852, 474);
+            this.ClientSize = new System.Drawing.Size(964, 474);
             this.Controls.Add(this.btnPesquisar);
             this.Controls.Add(this.txtEstado);
             this.Controls.Add(this.txtCodPais);

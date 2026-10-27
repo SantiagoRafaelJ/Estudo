@@ -13,7 +13,7 @@ namespace Estudo
         FrmConEstados oFrmConEstados;
         FrmConPaises oFrmConPaises;
         private Cidades oCidade;
-        private CtrlCidades aCtrlCidades;
+        private CtrlCidades aCtrlCidades; 
         public FrmCadCidades()
         {
             InitializeComponent();
@@ -25,8 +25,6 @@ namespace Estudo
             txtDdd.Clear();
             txtCodEstado.Clear();
             txtEstado.Clear();
-            txtCodPais.Clear();
-            txtPais.Clear();
             this.lblCodUsu.Text = "";
             this.lblDatCad.Text = "";
             this.lblUltAlt.Text = "";
@@ -49,11 +47,8 @@ namespace Estudo
             this.txtCodigo.Enabled = false;
             this.txtEstado.Enabled = false;
             this.txtCodEstado.Enabled = false;
-            this.txtCodPais.Enabled = false;
-            this.txtPais.Enabled = false;
             this.txtDdd.Enabled = false;
             this.btnPesquisarEstado.Enabled = false;
-            this.btnPesquisarPais.Enabled = false;
             this.txtCidade.Enabled = false;
         }
 
@@ -62,11 +57,8 @@ namespace Estudo
             this.txtCodigo.Enabled = true;
             this.txtEstado.Enabled = true;
             this.txtCodEstado.Enabled = true;
-            this.txtCodPais.Enabled = true;
-            this.txtPais.Enabled = true;
             this.txtDdd.Enabled = true;
             this.btnPesquisarEstado.Enabled = true;
-            this.btnPesquisarPais.Enabled = true;
             this.txtCidade.Enabled = true;
         }
 
@@ -78,6 +70,12 @@ namespace Estudo
 
         public override void Salvar()
         {
+            if ((this.txtCidade.Text == "") || (this.txtCidade.Text == null))
+            {
+                this.txtCidade.Focus();
+            }
+            if (txtCodEstado == null)
+                this.txtCodEstado.Focus();
             oCidade.Codigo = Convert.ToInt32(txtCodigo.Text);
             oCidade.Cidade = txtCidade.Text;
             oCidade.Ddd = txtDdd.Text;
@@ -95,8 +93,14 @@ namespace Estudo
 
         private void btnPesquisarEstado_Click(object sender, EventArgs e)
         {
-            oFrmConEstados.ConhecaObjeto(oCidade.OEstado, null);
+            string aux = oFrmConEstados.btnSair.Text;
+            string aux2 = this.lblEstado.Text;
+            oFrmConEstados.btnSair.Text = "Selecionar";
+            oFrmConEstados.ConhecaObjeto(oCidade.OEstado, aCtrlCidades.ACtrlEstados);
             oFrmConEstados.ShowDialog();
+            this.txtCodEstado.Text = Convert.ToString(oCidade.OEstado.Codigo);
+            this.txtEstado.Text = oCidade.OEstado.Estado;
+            oFrmConEstados.btnSair.Text = aux;
         }
 
     }

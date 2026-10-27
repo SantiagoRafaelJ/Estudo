@@ -28,7 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.colN = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Col_Codigo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Col_Estado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Col_Pais = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Col_UF = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
+            // 
+            // LV
+            // 
+            this.LV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Col_Codigo,
+            this.Col_Estado,
+            this.Col_UF,
+            this.Col_Pais,
+            this.colN});
+            this.LV.FullRowSelect = true;
+            this.LV.GridLines = true;
+            this.LV.MultiSelect = false;
+            this.LV.View = System.Windows.Forms.View.Details;
+            this.LV.SelectedIndexChanged += new System.EventHandler(this.LV_SelectedIndexChanged);
+            // 
+            // colN
+            // 
+            this.colN.Text = ".";
+            this.colN.Width = 10;
+            // 
+            // Col_Codigo
+            // 
+            this.Col_Codigo.Text = "Codigo";
+            // 
+            // Col_Estado
+            // 
+            this.Col_Estado.Text = "Estado";
+            // 
+            // Col_Pais
+            // 
+            this.Col_Pais.Text = "Pais";
+            // 
+            // Col_UF
+            // 
+            this.Col_UF.Text = "UF";
             // 
             // FrmConEstados
             // 
@@ -42,5 +82,11 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.ColumnHeader colN;
+        private System.Windows.Forms.ColumnHeader Col_Codigo;
+        private System.Windows.Forms.ColumnHeader Col_Estado;
+        private System.Windows.Forms.ColumnHeader Col_Pais;
+        private System.Windows.Forms.ColumnHeader Col_UF;
     }
 }
