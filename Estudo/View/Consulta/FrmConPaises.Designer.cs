@@ -50,6 +50,10 @@
             this.LV.View = System.Windows.Forms.View.Details;
             this.LV.SelectedIndexChanged += new System.EventHandler(this.LV_SelectedIndexChanged);
             // 
+            // btnPesquisar
+            // 
+            this.btnPesquisar.Click += new System.EventHandler(this.btnPesquisar_Click);
+            // 
             // colN
             // 
             this.colN.DisplayIndex = 5;

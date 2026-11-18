@@ -24,9 +24,9 @@ namespace Estudo.Models.DAO
                     if (oFuncionario.Codigo == 0)
                     {
                         const string sql =
-                            "INSERT INTO Funcionario (numCnh, datCnh, mat, salBase, aCidade, numDep, dataValidade, cep, oCargo) " +
+                            "INSERT INTO Funcionarios (numCnh, mat, salBase, aCidade, numDep, datCnhVal, cep, oCargo) " +
                             "OUTPUT INSERTED.codigo " +
-                            "VALUES (@numCnh, @datCnh, @mat, @salBase, @aCidade, @numDep, @dataValidade, @cep, @oCargo)";
+                            "VALUES (@numCnh, @mat, @salBase, @aCidade, @numDep, @datCnhVal, @cep, @oCargo)";
 
                         using (SqlCommand cmd = new SqlCommand(sql, cnn, tx))
                         {
@@ -37,8 +37,8 @@ namespace Estudo.Models.DAO
                     else
                     {
                         const string sql =
-                            "UPDATE Funcionario SET numCnh = @numCnh, datCnh = @datCnh, mat = @mat, salBase = @salBase, " +
-                            "aCidade = @aCidade, numDep = @numDep, dataValidade = @dataValidade, cep = @cep, oCargo = @oCargo " +
+                            "UPDATE Funcionarios SET numCnh = @numCnh, datCnhVal = @datCnhVal, mat = @mat, salBase = @salBase, " +
+                            "aCidade = @aCidade, numDep = @numDep, cep = @cep, oCargo = @oCargo " +
                             "WHERE codigo = @codigo";
 
                         using (SqlCommand cmd = new SqlCommand(sql, cnn, tx))
@@ -68,12 +68,11 @@ namespace Estudo.Models.DAO
         private static void AdicionarParametros(SqlCommand cmd, Funcionario oFuncionario)
         {
             cmd.Parameters.Add("@numCnh", SqlDbType.VarChar, 20).Value = oFuncionario.NumCnh;
-            cmd.Parameters.Add("@datCnh", SqlDbType.VarChar, 10).Value = oFuncionario.DatCnh;
+            cmd.Parameters.Add("@datCnhVal", SqlDbType.DateTime).Value = oFuncionario.DatCnhVal;
             cmd.Parameters.Add("@mat", SqlDbType.VarChar, 20).Value = oFuncionario.Mat;
             cmd.Parameters.Add("@salBase", SqlDbType.VarChar, 20).Value = oFuncionario.SalBase;
             cmd.Parameters.Add("@aCidade", SqlDbType.Int).Value = oFuncionario.ACidade.Codigo;
             cmd.Parameters.Add("@numDep", SqlDbType.Int).Value = oFuncionario.NumDep;
-            cmd.Parameters.Add("@dataValidade", SqlDbType.DateTime).Value = oFuncionario.DataValidade;
             cmd.Parameters.Add("@cep", SqlDbType.VarChar, 9).Value = oFuncionario.Cep;
             cmd.Parameters.Add("@oCargo", SqlDbType.Int).Value = oFuncionario.OCargo.Codigo;
         }
@@ -85,9 +84,9 @@ namespace Estudo.Models.DAO
             int idCargo;
 
             const string sql =
-                "SELECT codigo, numCnh, datCnh, mat, salBase, numDep, dataValidade, cep, " +
-                "aCidade, oCargo, codUsu, datCad, ultAlt " +
-                "FROM Funcionario WHERE codigo = @codigo";
+                "SELECT codigo, numCnh, mat, salBase, numDep, datCnhVal, cep, " +
+                "aCidade, oCargo, CodigoUsuario, DataCadastro, DataAlteracao " +
+                "FROM Funcionarios WHERE codigo = @codigo";
             try
             {
                 using (SqlConnection cnn = Banco.AbrirBD())
@@ -102,15 +101,14 @@ namespace Estudo.Models.DAO
 
                         oFuncionario.Codigo = dr.GetInt32(dr.GetOrdinal("codigo"));
                         oFuncionario.NumCnh = dr.GetString(dr.GetOrdinal("numCnh"));
-                        oFuncionario.DatCnh = dr.GetString(dr.GetOrdinal("datCnh"));
                         oFuncionario.Mat = dr.GetString(dr.GetOrdinal("mat"));
                         oFuncionario.SalBase = dr.GetString(dr.GetOrdinal("salBase"));
                         oFuncionario.NumDep = dr.GetInt32(dr.GetOrdinal("numDep"));
-                        oFuncionario.DataValidade = dr.GetDateTime(dr.GetOrdinal("dataValidade"));
+                        oFuncionario.DatCnhVal = dr.GetDateTime(dr.GetOrdinal("datCnhVal"));
                         oFuncionario.Cep = dr.GetString(dr.GetOrdinal("cep"));
-                        oFuncionario.CodUsu = dr.GetInt32(dr.GetOrdinal("codUsu"));
-                        oFuncionario.DatCad = dr.GetDateTime(dr.GetOrdinal("datCad"));
-                        oFuncionario.UltAlt = dr.GetDateTime(dr.GetOrdinal("ultAlt"));
+                        oFuncionario.CodUsu = dr.GetInt32(dr.GetOrdinal("CodigoUsuario"));
+                        oFuncionario.DatCad = dr.GetDateTime(dr.GetOrdinal("DataCadastro"));
+                        oFuncionario.UltAlt = dr.GetDateTime(dr.GetOrdinal("DataAlteracao"));
                         idCidade = dr.GetInt32(dr.GetOrdinal("aCidade"));
                         idCargo = dr.GetInt32(dr.GetOrdinal("oCargo"));
                     }
@@ -149,7 +147,7 @@ namespace Estudo.Models.DAO
             {
                 try
                 {
-                    const string sql = "DELETE FROM Funcionario WHERE codigo = @codigo";
+                    const string sql = "DELETE FROM Funcionarios WHERE codigo = @codigo";
 
                     using (SqlCommand cmd = new SqlCommand(sql, cnn, tx))
                     {

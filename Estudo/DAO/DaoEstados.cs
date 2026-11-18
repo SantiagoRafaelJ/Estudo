@@ -101,9 +101,9 @@ namespace Estudo.DAO
                         oEstado.Codigo = dr.GetInt32(dr.GetOrdinal("id"));
                         oEstado.Estado = dr.GetString(dr.GetOrdinal("estado"));
                         oEstado.Uf = dr.GetString(dr.GetOrdinal("uf"));
-                        oEstado.CodUsu = dr.GetInt32(dr.GetOrdinal("codUsu"));
-                        oEstado.DatCad = dr.GetDateTime(dr.GetOrdinal("datCad"));
-                        oEstado.UltAlt = dr.GetDateTime(dr.GetOrdinal("ultAlt"));
+                        oEstado.CodUsu = dr.GetInt32(dr.GetOrdinal("CodigoUsuario"));
+                        oEstado.DatCad = dr.GetDateTime(dr.GetOrdinal("DataCadastro"));
+                        oEstado.UltAlt = dr.GetDateTime(dr.GetOrdinal("DataAlteracao"));
                         idPais = dr.GetInt32(dr.GetOrdinal("idPais"));
                     }
                 }
@@ -123,7 +123,36 @@ namespace Estudo.DAO
         }
         public override List<object> Pesquisar(object obj)
         {
-            return null;
+            string sql = "SELECT e.ID, e.ESTADO, e.UF, e.IDPAIS, p.PAIS, e.CodigoUsuario, e.DataCadastro, e.DataAlteracao FROM Estados e INNER JOIN Paises p ON p.ID = e.IDPAIS";
+            var lista = new List<Object>();
+
+            using (SqlConnection cnn = Banco.AbrirBD())
+                try
+                {
+
+
+                    using (var cmd = new SqlCommand(sql, cnn))
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            Estados oEstado = new Estados();
+                            oEstado.Codigo = Convert.ToInt32(dr["ID"]);
+                            oEstado.Estado = dr["ESTADO"].ToString();
+                            oEstado.Uf = dr["UF"].ToString();
+                            oEstado.OPais.Codigo = Convert.ToInt32(dr["IDPAIS"]);
+                            oEstado.OPais.Pais = dr["PAIS"].ToString();
+
+                            lista.Add(oEstado);
+                        }
+                    }
+                    
+                }
+                finally
+                {
+                    
+                }
+            return lista;
         }
         public override string Excluir(object obj)
         {
@@ -153,7 +182,7 @@ namespace Estudo.DAO
                 catch (SqlException ex)
                 {
                     tx.Rollback();
-
+                    
                     if (ex.Number == 547)
                         return "Não é possível excluir: o estado está sendo usado por cidades.";
 

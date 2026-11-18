@@ -22,6 +22,7 @@ namespace Estudo
         public override void ConhecaObjeto(object obj, object ctrl)
         {
             oFuncionario = (Funcionario)obj;
+            aCtrlFunc = (CtrlFunc)ctrl;
         }
 
         public override void setFrmCadastro(object obj)
@@ -31,7 +32,7 @@ namespace Estudo
 
         public override void Incluir()
         {
-            oFrmCadFuncionarios.ConhecaObjeto(oFuncionario, null);
+            oFrmCadFuncionarios.ConhecaObjeto(oFuncionario, aCtrlFunc);
             oFrmCadFuncionarios.CarregaTxt();
             oFrmCadFuncionarios.ShowDialog();
         }
@@ -88,7 +89,30 @@ namespace Estudo
 
         public override void Pesquisar()
         {
+            this.LV.Items.Clear();
+            Funcionario oFuncionairoFiltro = new Funcionario();
 
+            foreach (Funcionario o in aCtrlFunc.Pesquisar(oFuncionairoFiltro))
+            {
+                this.AdicionarLinhaLV(o);
+            }
+
+        }
+
+        private void AdicionarLinhaLV(Funcionario oFuncionarioA)
+        {
+            ListViewItem item = new ListViewItem(".");
+
+            item.SubItems.Add(oFuncionarioA.Codigo.ToString());
+            item.SubItems.Add(oFuncionarioA.Mat);
+            item.SubItems.Add(oFuncionarioA.OCargo.Nome);
+            item.SubItems.Add(oFuncionarioA.ACidade.Cidade);
+            item.SubItems.Add(oFuncionarioA.NumCnh);
+            item.SubItems.Add(oFuncionarioA.DatCnhVal.ToString("dd/MM/yyyy"));
+            item.SubItems.Add(oFuncionario.SalBase);
+            item.SubItems.Add(".");
+            item.Tag = oFuncionarioA;
+            LV.Items.Add(item);
         }
 
         private void LV_SelectedIndexChanged(object sender, EventArgs e)
@@ -104,14 +128,21 @@ namespace Estudo
                 Funcionario oFuncionarioSel = (Funcionario)linha.Tag;
                 oFuncionario.Codigo = oFuncionarioSel.Codigo;
                 oFuncionario.NumCnh = oFuncionarioSel.NumCnh;
-                oFuncionario.DatCnh = oFuncionarioSel.DatCnh;
                 oFuncionario.Mat = oFuncionarioSel.Mat;
                 oFuncionario.SalBase = oFuncionarioSel.SalBase;
                 oFuncionario.NumDep = oFuncionarioSel.NumDep;
-                oFuncionario.DataValidade = oFuncionarioSel.DataValidade;
+                oFuncionario.DatCnhVal = oFuncionarioSel.DatCnhVal;
                 oFuncionario.Cep = oFuncionarioSel.Cep;
                 oFuncionario.ACidade = oFuncionarioSel.ACidade;
                 oFuncionario.OCargo = oFuncionarioSel.OCargo;
+                oFuncionario.Nome = oFuncionarioSel.Nome;
+                oFuncionario.Idade = oFuncionarioSel.Idade;
+                oFuncionario.Endereco = oFuncionarioSel.Endereco;
+                oFuncionario.Num = oFuncionarioSel.Num;
+                oFuncionario.Bairro = oFuncionarioSel.Bairro;
+                oFuncionario.Celular = oFuncionarioSel.Celular;
+                oFuncionario.Cpf = oFuncionarioSel.Cpf;
+                oFuncionario.Complemento = oFuncionarioSel.Complemento;
             }
         }
         public override void Sair()
@@ -122,14 +153,21 @@ namespace Estudo
 
                 oFuncionario.Codigo = oFuncionarioSel.Codigo;
                 oFuncionario.NumCnh = oFuncionarioSel.NumCnh;
-                oFuncionario.DatCnh = oFuncionarioSel.DatCnh;
                 oFuncionario.Mat = oFuncionarioSel.Mat;
                 oFuncionario.SalBase = oFuncionarioSel.SalBase;
                 oFuncionario.NumDep = oFuncionarioSel.NumDep;
-                oFuncionario.DataValidade = oFuncionarioSel.DataValidade;
+                oFuncionario.DatCnhVal = oFuncionarioSel.DatCnhVal;
                 oFuncionario.Cep = oFuncionarioSel.Cep;
                 oFuncionario.ACidade = oFuncionarioSel.ACidade;
                 oFuncionario.OCargo = oFuncionarioSel.OCargo;
+                oFuncionario.Nome = oFuncionarioSel.Nome;
+                oFuncionario.Idade = oFuncionarioSel.Idade;
+                oFuncionario.Endereco = oFuncionarioSel.Endereco;
+                oFuncionario.Num = oFuncionarioSel.Num;
+                oFuncionario.Bairro = oFuncionarioSel.Bairro;
+                oFuncionario.Celular = oFuncionarioSel.Celular;
+                oFuncionario.Cpf = oFuncionarioSel.Cpf;
+                oFuncionario.Complemento = oFuncionarioSel.Complemento;
                 DialogResult = DialogResult.OK;
             }
             else

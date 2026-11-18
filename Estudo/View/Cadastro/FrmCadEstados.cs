@@ -83,6 +83,7 @@ namespace Estudo
             oEstado.Uf = txtUf.Text;
             oEstado.OPais.Pais = txtPais.Text;
             oEstado.OPais.Codigo = Convert.ToInt32(txtCodPais.Text);
+            aCtrlEstados.Salvar(oEstado);
             this.Sair();
         }
 

@@ -76,7 +76,7 @@ namespace Estudo.Models.DAO
             Cargo oCargo = (Cargo)obj;
 
             const string sql =
-                "SELECT codigo, nome, exigeCNH, comiss, codUsu, datCad, ultAlt " +
+                "SELECT codigo, nome, exigeCNH, comiss, CodigoUsuario, DataCadastro, DataAlteracao" +
                 "FROM Cargo WHERE codigo = @codigo";
             try
             {
@@ -94,9 +94,9 @@ namespace Estudo.Models.DAO
                         oCargo.Nome = dr.GetString(dr.GetOrdinal("nome"));
                         oCargo.ExigeCNH = dr.GetBoolean(dr.GetOrdinal("exigeCNH"));
                         oCargo.Comiss = dr.GetDouble(dr.GetOrdinal("comiss"));
-                        oCargo.CodUsu = dr.GetInt32(dr.GetOrdinal("codUsu"));
-                        oCargo.DatCad = dr.GetDateTime(dr.GetOrdinal("datCad"));
-                        oCargo.UltAlt = dr.GetDateTime(dr.GetOrdinal("ultAlt"));
+                        oCargo.CodUsu = dr.GetInt32(dr.GetOrdinal("CodigoUsuario"));
+                        oCargo.DatCad = dr.GetDateTime(dr.GetOrdinal("DataCadastro"));
+                        oCargo.UltAlt = dr.GetDateTime(dr.GetOrdinal("UltimaAlteracao"));
                     }
                 }
                 return "";

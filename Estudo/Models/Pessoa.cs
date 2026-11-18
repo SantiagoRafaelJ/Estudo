@@ -9,18 +9,22 @@ namespace Estudo
 {
     internal class Pessoa : Pai
     {
-        protected string nome;
-        protected int idade;
-        protected char sexo;
-        protected string endereco;
-        protected string num;
-        protected string bairro;
-        protected string complemento;
-        protected string celular;
-        protected string cpf;
+        protected string nome; //adicionar
+        protected int idade; //adicionar
+        protected char sexo; //adicionar
+        protected string endereco; //adicionar
+        protected string num; //adicionar
+        protected string bairro; //adicionar
+        protected string complemento; //adicionar
+        protected string celular; //adicionar
+        protected string cpf; //adicionar
+        protected Cidades aCidade;
+        protected string cep;
 
         public Pessoa()
         {
+            aCidade = new Cidades();
+            cep = "";
             nome = "";
             idade = 0;
             sexo = ' ';
@@ -84,6 +88,18 @@ namespace Estudo
         {
             get => celular;
             set => celular = value;
+        }
+
+        public Cidades ACidade
+        {
+            get => aCidade;
+            set => aCidade = value;
+        }
+
+        public string Cep
+        {
+            get => cep;
+            set => cep = value;
         }
     }
 }

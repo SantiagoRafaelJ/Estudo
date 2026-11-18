@@ -10,38 +10,29 @@ namespace Estudo
     internal class Funcionario : Pessoa
     {
         protected string numCnh;
-        protected string datCnh;
+        protected DateTime datCnhVal;
         protected string mat;
         protected string salBase;
-        protected Cidades aCidade;
         protected int numDep;
-        protected DateTime dataValidade;
-        protected string cep;
         protected Cargo oCargo;
 
         public Funcionario()
         {
             numCnh = "";
-            datCnh = "";
+            datCnhVal = DateTime.Today;
             mat = "";
             salBase = "";
-            aCidade = new Cidades();
             numDep = 0;
-            dataValidade = DateTime.Today;
-            cep = "";
             oCargo = new Cargo();
         }
 
-        public Funcionario(string numCnh, string datCnh, string mat, string salBase, Cidades aCidade, int numDep, DateTime dataValidade, string cep, string num, string endereco, Cargo oCargo)
+        public Funcionario(string numCnh, DateTime datCnhVal, string mat, string salBase, int numDep, string num, string endereco, Cargo oCargo)
         {
             this.numCnh = numCnh;
-            this.datCnh = datCnh;
+            this.datCnhVal = datCnhVal;
             this.mat = mat;
             this.salBase = salBase;
-            this.aCidade = aCidade;
             this.numDep = numDep;
-            this.dataValidade = dataValidade;
-            this.cep = cep;
             this.num = num;
             this.endereco = endereco;
             this.oCargo = oCargo;
@@ -52,10 +43,10 @@ namespace Estudo
             get => numCnh;
             set => numCnh = value;
         }
-        public string DatCnh
+        public DateTime DatCnhVal
         {
-            get => datCnh;
-            set => datCnh = value;
+            get => datCnhVal;
+            set => datCnhVal = value;
         }
 
         public string Mat
@@ -70,11 +61,6 @@ namespace Estudo
             set => salBase = value;
         }
 
-        public Cidades ACidade
-        {
-            get => aCidade;
-            set => aCidade = value;
-        }
 
         public int NumDep
         {
@@ -82,17 +68,6 @@ namespace Estudo
             set => numDep = value;
         }
 
-        public DateTime DataValidade
-        {
-            get => dataValidade;
-            set => dataValidade = value;
-        }
-
-        public string Cep
-        {
-            get => cep;
-            set => cep = value;
-        }
 
         public Cargo OCargo
         {
@@ -102,7 +77,7 @@ namespace Estudo
 
         public Funcionario Clone()
         {
-            return new Funcionario(numCnh, datCnh, mat, salBase, aCidade, numDep, dataValidade, cep, num, endereco, oCargo);
+            return new Funcionario(numCnh, datCnhVal, mat, salBase, numDep, num, endereco, oCargo);
         }
     }
 }

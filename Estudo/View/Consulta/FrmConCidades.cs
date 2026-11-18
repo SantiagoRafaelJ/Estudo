@@ -22,6 +22,7 @@ namespace Estudo
         {
             oCidade = (Cidades)obj;
             aCtrlCidades = (CtrlCidades)ctrl;
+            this.Pesquisar();
         }
 
         public override void Incluir()
@@ -29,6 +30,7 @@ namespace Estudo
             oFrmCadCidades.ConhecaObjeto(oCidade, aCtrlCidades);
             oFrmCadCidades.CarregaTxt();
             oFrmCadCidades.ShowDialog();
+            this.Pesquisar();
         }
 
         public override void Alterar()
@@ -83,7 +85,25 @@ namespace Estudo
 
         public override void Pesquisar()
         {
+            this.LV.Items.Clear();
+            Cidades aCidadeFiltro = new Cidades();
 
+            foreach (Cidades o in aCtrlCidades.Pesquisar(aCidadeFiltro))
+            {
+                this.AdicionarLinhaLV(o);
+            }
+        }
+        private void AdicionarLinhaLV(Cidades aCidadeA)
+        {
+            ListViewItem item = new ListViewItem(".");
+
+            item.SubItems.Add(aCidadeA.Codigo.ToString());
+            item.SubItems.Add(aCidadeA.Cidade);
+            item.SubItems.Add(aCidadeA.Ddd);
+            item.SubItems.Add(aCidadeA.OEstado.Estado);
+            item.SubItems.Add(".");
+            item.Tag = aCidadeA;
+            LV.Items.Add(item);
         }
 
         public override void setFrmCadastro(object obj)

@@ -51,23 +51,28 @@
             // 
             // colN
             // 
+            this.colN.DisplayIndex = 0;
             this.colN.Text = ".";
             this.colN.Width = 10;
             // 
             // Col_Codigo
             // 
+            this.Col_Codigo.DisplayIndex = 1;
             this.Col_Codigo.Text = "Codigo";
             // 
             // Col_Estado
             // 
+            this.Col_Estado.DisplayIndex = 2;
             this.Col_Estado.Text = "Estado";
             // 
             // Col_Pais
             // 
+            this.Col_Pais.DisplayIndex = 4;
             this.Col_Pais.Text = "Pais";
             // 
             // Col_UF
             // 
+            this.Col_UF.DisplayIndex = 3;
             this.Col_UF.Text = "UF";
             // 
             // FrmConEstados

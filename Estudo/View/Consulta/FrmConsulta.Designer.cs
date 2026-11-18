@@ -122,7 +122,7 @@
         private System.Windows.Forms.Button btnIncluir;
         private System.Windows.Forms.Button btnAlterar;
         private System.Windows.Forms.Button btnExcluir;
-        private System.Windows.Forms.Button btnPesquisar;
         protected System.Windows.Forms.ListView LV;
+        protected System.Windows.Forms.Button btnPesquisar;
     }
 }

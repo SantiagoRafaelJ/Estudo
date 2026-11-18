@@ -22,6 +22,7 @@ namespace Estudo
         {
             oEstado = (Estados)obj;
             aCtrlEstados = (CtrlEstados)ctrl;
+            this.Pesquisar();
         }
 
         public override void Incluir()
@@ -29,6 +30,7 @@ namespace Estudo
             oFrmCadEstados.ConhecaObjeto(oEstado, aCtrlEstados);
             oFrmCadEstados.CarregaTxt();
             oFrmCadEstados.ShowDialog();
+            this.Pesquisar();
         }
 
         public override void Alterar()
@@ -86,21 +88,21 @@ namespace Estudo
             this.LV.Items.Clear();
             Estados oEstadoFiltro = new Estados();
 
-            oEstadoFiltro.Estado = txtCodigo.Text.Trim().ToUpper();
+            
             // var listaResultado = new List<Paises>();
             foreach (Estados o in aCtrlEstados.Pesquisar(oEstadoFiltro))
             {
-                AdicionarLinhaLV(o);
+                this.AdicionarLinhaLV(o);  // Perguntar para a IA a relação desse com Ctrl->Dao com Adicionar linha para entender como os atributos foram para o e volataram para a ListView
             }
         }
 
         private void AdicionarLinhaLV(Estados oEstadoA)
         {
-            ListViewItem item = new ListViewItem(".");
-            item.SubItems.Add(oEstado.Codigo.ToString());
-            item.SubItems.Add(oEstado.Estado);
-            item.SubItems.Add(oEstado.OPais.Pais);
-            item.SubItems.Add(oEstado.Uf);
+            ListViewItem item = new ListViewItem(oEstadoA.Codigo.ToString());
+            item.SubItems.Add(oEstadoA.Estado);
+            item.SubItems.Add(oEstadoA.Uf);
+            item.SubItems.Add(oEstadoA.OPais.Pais);
+            item.SubItems.Add(".");
             item.Tag = oEstadoA;
             LV.Items.Add(item);
         }
@@ -122,7 +124,7 @@ namespace Estudo
             {
                 ListViewItem linha = LV.SelectedItems[0];
                 Estados oEstadoSel = (Estados)linha.Tag;
-                oEstado.Codigo = oEstadoSel.Codigo;
+                oEstado.Codigo = Convert.ToInt32(oEstadoSel.Codigo); // desnecessário
                 oEstado.Estado = oEstadoSel.Estado;
                 oEstado.Uf = oEstadoSel.Uf;
                 oEstado.OPais = oEstadoSel.OPais;

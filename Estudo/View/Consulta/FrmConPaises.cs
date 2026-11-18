@@ -93,26 +93,25 @@ namespace Estudo
         {
             this.LV.Items.Clear();
             Paises oPaisFiltro = new Paises();
-
-            oPaisFiltro.Pais = txtCodigo.Text.Trim().ToUpper();
-            // var listaResultado = new List<Paises>();
-            foreach (Paises o in aCtrlPaises.Pesquisar(oPaisFiltro))
+            
+            //var listaResultado = new List<Paises>();
+            foreach (Paises pais in aCtrlPaises.Pesquisar(oPaisFiltro))
             {
-                AdicionarLinhaLV(o);
+                this.AdicionarLinhaLV(pais);
             }
         }
             
         private void AdicionarLinhaLV(Paises oPaisA)
         {
                 ListViewItem item = new ListViewItem(".");
-                item.SubItems.Add(oPais.Codigo.ToString());
-                item.SubItems.Add(oPais.Pais);
-                item.SubItems.Add(oPais.Sigla);
-                item.SubItems.Add(oPais.Ddi);
-                item.SubItems.Add(oPais.Moeda);
+                item.SubItems.Add(oPaisA.Codigo.ToString());
+                item.SubItems.Add(oPaisA.Pais);
+                item.SubItems.Add(oPaisA.Sigla);
+                item.SubItems.Add(oPaisA.Ddi);
+                item.SubItems.Add(oPaisA.Moeda);
                 item.Tag = oPaisA;
                 LV.Items.Add(item);
-        }
+}
 
         public override void Sair()
         {
@@ -136,11 +135,7 @@ namespace Estudo
 
         private void LV_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (LV.SelectedItems.Count == 0)
-            {
-                MessageBox.Show("Selecione uma linha.");
-                return;
-            }
+            
             if (this.LV.SelectedItems.Count > 0)
             {
                 ListViewItem linha = LV.SelectedItems[0];
@@ -151,6 +146,11 @@ namespace Estudo
                 oPais.Ddi = oPaisSel.Ddi;
                 oPais.Moeda = oPaisSel.Moeda;
             }
+        }
+
+        private void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            this.Pesquisar();
         }
     }
 }

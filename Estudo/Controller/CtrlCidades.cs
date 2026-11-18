@@ -18,6 +18,7 @@ namespace Estudo
         }
         public override string Salvar(object obj)
         {
+            aDaoCidades.Salvar(obj);
             return null;
         }
         public override string CarregarObj(object obj)
@@ -26,7 +27,7 @@ namespace Estudo
         }
         public override List<object> Pesquisar(object obj)
         {
-            return null;
+            return aDaoCidades.Pesquisar(obj);
         }
         public override string Excluir(object obj)
         {

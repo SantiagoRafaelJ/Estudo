@@ -75,7 +75,7 @@ namespace Estudo
             oFrmConEstados.ShowDialog();
         }
 
-        public void PecaCidades(Cidades obj, object ctrl)
+        public void PecaCidades(Cidades obj, CtrlCidades ctrl)
         {
             oFrmConCidades.ConhecaObjeto(obj, ctrl);
             oFrmConCidades.ShowDialog();

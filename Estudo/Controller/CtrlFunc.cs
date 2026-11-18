@@ -11,10 +11,14 @@ namespace Estudo
     {
 
         protected DaoFuncionario aDaoFuncionario;
+        protected CtrlCargo aCtrlCargo;
+        protected CtrlCidades aCtrlCidades;
 
         public CtrlFunc()
         {
             aDaoFuncionario = new DaoFuncionario();
+            aCtrlCargo = new CtrlCargo();
+            aCtrlCidades = new CtrlCidades();
         }
         public override string Salvar(object obj)
         {
@@ -35,6 +39,18 @@ namespace Estudo
         public override List<object> CarregarColecao()
         {
             return null;
+        }
+
+        public CtrlCidades ACtrlCidades
+        {
+            get => aCtrlCidades;
+            set => aCtrlCidades = value;
+        }
+
+        public CtrlCargo ACtrlCargo
+        {
+            get => aCtrlCargo;
+            set => aCtrlCargo = value;
         }
     }
 }

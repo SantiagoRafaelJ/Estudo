@@ -78,7 +78,7 @@ namespace Estudo.Models.DAO
             int idEstado;
 
             const string sql =
-                "SELECT id, cidade, ddd, idEstado, codUsu, datCad, ultAlt " +
+                "SELECT id, cidade, ddd, idEstado, CodigoUsuario, DataCadastro, DataAlteracao " +
                 "FROM Cidades WHERE id = @codigo";
             try
             {
@@ -95,9 +95,9 @@ namespace Estudo.Models.DAO
                         oCidade.Codigo = dr.GetInt32(dr.GetOrdinal("id"));
                         oCidade.Cidade = dr.GetString(dr.GetOrdinal("cidade"));
                         oCidade.Ddd = dr.GetString(dr.GetOrdinal("ddd"));
-                        oCidade.CodUsu = dr.GetInt32(dr.GetOrdinal("codUsu"));
-                        oCidade.DatCad = dr.GetDateTime(dr.GetOrdinal("datCad"));
-                        oCidade.UltAlt = dr.GetDateTime(dr.GetOrdinal("ultAlt"));
+                        oCidade.CodUsu = dr.GetInt32(dr.GetOrdinal("CodigoUsuario"));
+                        oCidade.DatCad = dr.GetDateTime(dr.GetOrdinal("DataCadastro"));
+                        oCidade.UltAlt = dr.GetDateTime(dr.GetOrdinal("DataAlteracao"));
                         idEstado = dr.GetInt32(dr.GetOrdinal("idEstado"));
                     }
                 }
@@ -117,7 +117,34 @@ namespace Estudo.Models.DAO
         }
         public override List<object> Pesquisar(object obj)
         {
-            return null;
+            string sql = "SELECT c.ID, c.CIDADE, c.DDD, c.IDESTADO, e.ESTADO, c.CodigoUsuario, c.DataCadastro, c.DataAlteracao FROM Cidades c INNER JOIN Estados e ON e.ID = c.IDESTADO";
+            var lista = new List<Object>();
+
+            using (SqlConnection cnn = Banco.AbrirBD())
+            try
+            {
+
+                    using (var cmd = new SqlCommand(sql, cnn))
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            Cidades aCidade = new Cidades();
+                            aCidade.Codigo = Convert.ToInt32(dr["ID"]);
+                            aCidade.Cidade = dr["CIDADE"].ToString();
+                            aCidade.Ddd = dr["DDD"].ToString();
+                            aCidade.OEstado.Codigo = Convert.ToInt32(dr["IDESTADO"]);
+                            aCidade.OEstado.Estado = dr["ESTADO"].ToString();
+
+                            lista.Add(aCidade);
+                        }
+                    }
+            }
+            finally
+            {
+
+            }
+            return lista;
         }
         public override string Excluir(object obj)
         {

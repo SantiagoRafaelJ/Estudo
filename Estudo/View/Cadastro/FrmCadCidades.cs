@@ -81,6 +81,7 @@ namespace Estudo
             oCidade.Ddd = txtDdd.Text;
             oCidade.OEstado.Estado = txtEstado.Text;
             oCidade.OEstado.Codigo = Convert.ToInt32(txtCodEstado.Text);
+            aCtrlCidades.Salvar(oCidade);
             this.Sair();
         }
 

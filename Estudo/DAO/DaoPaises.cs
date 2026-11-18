@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Estudo.Models.DAO
 {
@@ -80,7 +81,7 @@ namespace Estudo.Models.DAO
             Paises oPais = (Paises)obj;
 
             const string sql =
-                "SELECT id, pais, sigla, ddi, moeda, codUsu, datCad, ultAlt " +
+                "SELECT id, pais, sigla, ddi, moeda, CodigoUsuario, DataCadastro, DataAlteracao " +
                 "FROM Paises WHERE id = @codigo";
             try
             {
@@ -99,9 +100,9 @@ namespace Estudo.Models.DAO
                         oPais.Sigla = dr.GetString(dr.GetOrdinal("sigla"));
                         oPais.Ddi = dr.GetString(dr.GetOrdinal("ddi"));
                         oPais.Moeda = dr.GetString(dr.GetOrdinal("moeda"));
-                        oPais.CodUsu = dr.GetInt32(dr.GetOrdinal("codUsu"));
-                        oPais.DatCad = dr.GetDateTime(dr.GetOrdinal("datCad"));
-                        oPais.UltAlt = dr.GetDateTime(dr.GetOrdinal("ultAlt"));
+                        oPais.CodUsu = dr.GetInt32(dr.GetOrdinal("CodigoUsuario"));
+                        oPais.DatCad = dr.GetDateTime(dr.GetOrdinal("DataCadastro"));
+                        oPais.UltAlt = dr.GetDateTime(dr.GetOrdinal("DataAlteracao"));
                     }
                 }
                 return "";
@@ -121,31 +122,30 @@ namespace Estudo.Models.DAO
             var lista = new List<Object>();
 
             using (SqlConnection cnn = Banco.AbrirBD())
+            try
+            {
+                
 
-
-                try
+                using (var cmd = new SqlCommand(sql, cnn))
+                using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    if (cnn.State != System.Data.ConnectionState.Open)
-                        cnn.Open();
-
-                    using (var cmd = new SqlCommand(sql, cnn))
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    while (dr.Read())
                     {
-                        while (dr.Read())
-                        {
-                            lista.Add(new Paises(
-                                Convert.ToInt32(dr["ID"]),
-                                dr["pais"].ToString(),
-                                dr["sigla"].ToString(),
-                                dr["ddi"].ToString(),
-                                dr["moeda"].ToString()));
-                        }
+                        Paises oPais = new Paises();
+                        oPais.Codigo = Convert.ToInt32(dr["ID"]);
+                        oPais.Pais = dr["PAIS"].ToString();
+                        oPais.Sigla = dr["SIGLA"].ToString();
+                        oPais.Ddi = dr["DDI"].ToString();
+                        oPais.Moeda = dr["MOEDA"].ToString();
+
+                        lista.Add(oPais);
                     }
                 }
-                finally
-                {
-                    cnn.Close();
-                }
+            }
+            finally
+            {
+                    
+            }
             return lista;
         }
         public override string Excluir(object obj)
